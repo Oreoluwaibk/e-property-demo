@@ -1,115 +1,75 @@
-import { Col, Layout, Row } from 'antd';
+import { Button, Col, Form, Input, Layout, Row, Tooltip } from 'antd';
+import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, { ReactNode, useEffect, useState } from 'react'
+import { Logo } from '../../../assets';
+import { FacebookFilled, InstagramFilled, LinkedinFilled, SearchOutlined, TikTokFilled, TwitterOutlined, UpCircleFilled } from '@ant-design/icons';
 
 
 const { Header, Footer } = Layout;
-const WebsiteBg = () => {
+const WebsiteBg = ({ children }: { children: ReactNode}) => {
+    const [isVisible, setIsVisible] = useState(false);
+
+    const toggleVisibility = () => {
+        if (window.scrollY > 300) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+    };
+    
+    useEffect(() => {
+        window.addEventListener('scroll', toggleVisibility);
+        return () => {
+          window.removeEventListener('scroll', toggleVisibility);
+        };
+    }, []);
+
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
   return (
     <Layout className="">
-        {/* <Header className={variables.header}>
-            <div className="bg-siteHeader h-10 w-full"></div>
-            <div className={variables.headerBody}>
-                <div className='flex gap-10'>
+        <Header className="bg-background" style={{height: 140, display: "flex", alignItems: "center", width: "100%"}}>
+            <div className="flex items-center justify-between h-10 w-full">
+                <div className='flex gap-10 items-center'>
                     <Link href="/">
                         <Image 
-                            src={ImoLogo}
+                            src={Logo}
                             alt='Imo Varsity'
                             className="bg-white"
+                            style={{width: 120, height: 40}}
                         />
                     </Link>
-                    {!hideSearch && <Sitesearch />}
-                    
+                    <div>
+                        <Input prefix={<SearchOutlined />} placeholder='Search...' style={{height: 40}} />
+                    </div> 
+                   
                 </div>
                
                 
-                <div className='flex gap-4'>
-                   
-                    <div className='flex items-center gap-6'>
-                        <Link href="/" className='text-sm'>Home</Link>
-                        <div  className='flex items-center gap-1'>
-                            <div>
-                                <Dropdown
-                                    menu={{
-                                        items: dropdownItem
-                                    }}
-                                    placement="bottom"
-                                    className='dropdown_display'
-                                >
-                                    <div className='flex items-center gap-2 cursor-pointer'>
-                                        <p className='text-sm'>Faculty</p>
-                                        <DownOutlined className='cursor-pointer' />
-                                    </div>
-                                    
-                                </Dropdown>
-                            </div>
-                        </div>
-                        <Link href="/about-us" className='text-sm'>Why IMV</Link>
+                <div className='flex gap-4' style={{marginLeft: -80}}>
+                     <div className='flex items-center gap-16 text-xl'>
+                        <Link href="/" className='text-lg'>Home</Link>
                         
-                        <div className='flex items-center gap-2'>
-                            {resourseElement && <Link href={`${resoursecTo}`}>{resourseElement}</Link>}
-                            {!resourseElement && <Dropdown
-                                menu={{
-                                    items: dropdownItem2
-                                }}
-                                placement="bottom"
-                                className='dropdown_display'
-                            >    
-                                <div className='flex items-center gap-2 cursor-pointer'>
-                                    <p className='text-sm'>
-                                        Resources
-                                    </p>
-                                    <DownOutlined className='cursor-pointer' />
-                                </div>
-                            </Dropdown>}
-                        </div>
+                        <Link href="#" className='text-lg'>About</Link>
                         
-                        <Link href="/imv-business" className='text-sm'>IMV Business</Link>
+                        <Link href="#" className='text-lg'>Services</Link>
                     </div>
                 </div>
                
                 <div className='flex items-center gap-5'>
-                    {!isAuthenticated && <Link href={`${redirect ? "/auth/signin" : "/student/login"}`}>
-                        <Button 
-                            className="flex items-center justify-center rounded-none font-bold text-base"
-                            style={{height:40, width:100}}
-                            // onClick={() => redirect ? router.push("/auth/signin") : router.push("/student/login")}
-                        >
-                            Login
-                        </Button>
-                    </Link>}
-                    {isAuthenticated && <Link href={`${loginType === "student" ? "/student/dashboard" : "/dashboard"}`}>
-                        <Button 
-                            className="flex items-center justify-center rounded-none font-bold text-base"
-                            style={{height:40, minWidth:100}}
-                            type="primary"
-                        >
-                            Dashboard
-                        </Button>
-                    </Link>}
-                   
-                    {!isAuthenticated && <Link href={`${redirect ? "/auth/signup" : "/student/sign-up"}`}>
-                        <Button 
-                            type="primary" 
-                            className="flex items-center justify-center gap-2 rounded-none font-bold text-base"
-                            style={{height:40, width:100}}
-                            // onClick={() => redirect ? router.push("/auth/signup") : router.push("/student/sign-up")}
-                        >
-                            Register
-                        </Button>
-                    </Link>}
-                    {isAuthenticated && <Button 
+                    <Button 
                         className="flex items-center justify-center rounded-none font-bold text-base"
-                        style={{height:40, minWidth:100}}
-                        loading={loading}
-                        onClick={handleLogout}
+                        style={{height:50, width:150}}
+                        // loading={loading}
+                        // onClick={handleLogout}
                     >
-                        Logout
-                    </Button>}
-                   
+                        Contact Us
+                    </Button>
                 </div>
             </div>
-            {!showMobileSearch && <div className='flex items-center justify-between w-full px-6 md:hidden'>
+            {/* {!showMobileSearch && <div className='flex items-center justify-between w-full px-6 md:hidden'>
                 <MenuOutlined className='text-[24px] cursor-pointer' onClick={() => setShowDrawer(true)} />
                 <Link href="/">
                     <Image 
@@ -127,7 +87,7 @@ const WebsiteBg = () => {
             {showMobileSearch && <div className='flex items-center gap-2 pb-4'>
                 <Sitesearch />
                 <CloseOutlined className='text-[20px]' onClick={() => setShowMobileSearch(false)}/>
-            </div>}
+            </div>} */}
             
         </Header>
         <Layout className='bg-white relative'>
@@ -141,59 +101,56 @@ const WebsiteBg = () => {
             </Tooltip>}
            
         </Layout>
-        <Footer className="">
-            <Row>
+        <Footer className="bg-background pb-10" style={{padding: 0}}>
+            <Row className="bg-background" style={{padding: "40px 0"}}>
                 <Col lg={6} sm={24} xs={24} className='flex flex-col items-center md:items-start md:justify-start justify-center md:mb-0 mb-10 mt-4'>
                     <Link href="/">
                         <Image 
-                            src={LogoNoBg}
+                            src={Logo}
                             alt='Imo Varsity'
-                            style={{ marginTop:-86}}
-                            className="md:ml-[-25px]"
+                            style={{width: 120, height: 40}}
+                            className='ml-3'
                         />
                     </Link>
                     
 
-                    <div className="flex items-center gap-2 ml-3"  style={{ marginTop:-50}}>
-                        <Link href={"https://www.linkedin.com/company/imo-varsity"}><LinkedinFilled className="text-white text-2xl" /></Link> 
-                        <Link href={"https://x.com/imovarsity"} ><TwitterOutlined className="text-white text-2xl" /></Link>
-                        <Link href={"https://www.instagram.com/imovarsity"}><InstagramFilled className="text-white text-2xl" /></Link>
-                        <Link href={"#"}><FacebookFilled className="text-white text-2xl" /></Link> 
-                        <Link href={"https://www.tiktok.com/@imovarsity"}><TikTokFilled className="text-white text-2xl" /></Link>
+                    <div className="flex items-center gap-2 ml-3"  style={{ marginTop: 50}}>
+                        <Link href="#"><LinkedinFilled className="text-white text-2xl" /></Link> 
+                        <Link href="#" ><TwitterOutlined className="text-white text-2xl" /></Link>
+                        <Link href="#"><InstagramFilled className="text-white text-2xl" /></Link>
+                        <Link href="#"><FacebookFilled className="text-white text-2xl" /></Link> 
+                        <Link href="#"><TikTokFilled className="text-white text-2xl" /></Link>
                         
                     </div>
                 </Col>
 
                 <Col lg={4} sm={8} xs={8} className='flex flex-col items-center md:items-start'>
-                    <span className='footer_head mb-3 inline-block'>Company</span>
+                    <p className='text-[#F2F4F7] mb-4 text-lg'>Company</p>
 
                     <div className='flex flex-col gap-3 items-center md:items-start'>
-                        <Link className='footer_link' href="/about-us">Why IMV</Link>
-                        <Link className='footer_link' href="/imv-business">IMV Business</Link>
-                        <Link className='footer_link' href="/contact-us">Contact</Link>
+                        <Link className='footer_link' href="#">Landlords</Link>
+                        <Link className='footer_link' href="#">Tenants</Link>
+                        <Link className='footer_link' href="#">Agents</Link>
+                        <Link className='footer_link' href="#">Artisans</Link>
                     </div>
                 </Col>
                 <Col lg={4} sm={8} xs={8} className='flex flex-col items-center md:items-start'>
-                    <span className='footer_head mb-3 inline-block'>Faculty</span>
+                    <p className='text-[#F2F4F7] mb-4 text-lg'>Discover</p>
 
                     <div className='flex flex-col gap-3 items-center md:items-start'>
-                        <Link className='footer_link' href="/faculty/faculty-of-design">Design</Link>
-                        <Link className='footer_link' href="/faculty/faculty-of-development">Development</Link>
-                        <Link className='footer_link' href="/faculty/faculty-of-marketing">Marketing</Link>
-                        <Link className='footer_link' href="/faculty/faculty-of-cybersecurity">Cybersecurity</Link>
-                        <Link className='footer_link' href="/faculty/faculty-of-product">Product</Link>
-                        <Link className='footer_link' href="/faculty/faculty-of-sales">Sales</Link>
-                        <Link className='footer_link' href="/faculty/faculty-of-ai">AI</Link>
-                        <Link className='footer_link' href="/faculty/faculty-of-data">Data</Link>
-                        <Link className='footer_link' href="/faculty/faculty-of-cloud">Cloud</Link>
+                        <Link className='footer_link' href="#">Locations</Link>
+                        <Link className='footer_link' href="#">Real Estate News</Link>
+                        <Link className='footer_link' href="#">Trending</Link>
+                        <Link className='footer_link' href="#">Marketing</Link>
+                        <Link className='footer_link' href="#">Survey</Link>
                     </div>
                 </Col>
                 <Col lg={4} sm={8} xs={8} className='flex flex-col items-center md:items-start'>
-                    <span className='footer_head mb-3 inline-block'>Resources</span>
+                    <p className='text-[#F2F4F7] mb-4 text-lg'>Resources</p>
 
                     <div className='flex flex-col gap-3'>
                         <Link className='footer_link' href="#">Blog</Link>
-                        <Link className='footer_link' href="/faqs">FAQs</Link>
+                        <Link className='footer_link' href="#">FAQs</Link>
                     </div>
                 </Col>   
                 <Col lg={6} sm={24} xs={24} className='flex flex-col md:items-start items-center md:my-0 mt-4 mb-2 pt-4 md:pt-0'>
@@ -209,15 +166,15 @@ const WebsiteBg = () => {
                     </Form>
                 </Col>                
             </Row>
-            <div className='text-white flex flex-col gap-6 md:gap-0 md:flex-row items-center justify-between px-4 pl-0 pr-0 border-t-[#475467] border-t md:pt-7 mt-1 md:mt-10'>
-                <p>© 2024 IMO VARSITY. All rights reserved.</p>
+            <div className='bg-background text-white flex flex-col gap-6 md:gap-0 md:flex-row items-center justify-between px-10 py-6 border-t-[#475467] border-t'>
+                <p>Copyright © 2025 - ePropertyTree. All rights reserved.</p>
                 <div className="flex items-center gap-2">
-                    <Link href="/terms">Terms</Link>
-                    <Link href="/privacy">Privacy</Link>
-                    <Link href="/cookies">Cookies</Link>
+                    <Link href="#">Terms</Link>
+                    <Link href="#">Privacy</Link>
+                    <Link href="#">Cookies</Link>
                 </div>
             </div>
-        </Footer> */}
+        </Footer>
     </Layout>
   )
 }

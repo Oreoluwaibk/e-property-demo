@@ -1,115 +1,133 @@
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
+import WebsiteBg from "@/components/backgrounds/WebsiteBg";
+import { BG1 } from "../../assets";
+import DescriptionCard from "@/components/cards/DescriptionCard";
+import { motion, useMotionValue, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { ListingCards } from "@/components/cards/ListingCards";
+import { Col, Row } from "antd";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const descriptions = [
+  {id:1,name: "List Your Property with Confidence", description: "Easily manage your properties, set rental terms, and reach qualified tenants. Our platform gives you full control, from listing to lease — all in one place."},
+  {id: 2,name: "Connect Clients to the Perfect Property", description: "Showcase curated listings, schedule viewings, and close deals faster. Whether you're working with landlords or house hunters, we simplify your sales process with powerful tools."},
+  {id: 3,name: "Find Your Next Home, Effortlessly", description: "Search properties by location, price, and amenities. Get real-time updates, book viewings, and chat directly with agents — all tailored to your needs."}
+]
 
+const titlement = [
+  {id: 1, name: "LandLord", title: "Manage and Monetize Your Property Seamlessly", features: ["Fast property listing with images & videos", "Built-in rent collection and reminders", "Dashboard to track property performance"], buttonTitle: "List My Prpoerties", description: "List your apartments, set rental terms, screen potential tenants, and track rent payments. Let your property work for you, not the other way around."},
+
+  {id: 2, name: "Tenants / Renters", title: "Find the Right Home Without the Hassle", features: ["Book property tours online", "Filter by location, price, amenities", "Save & compare listings", "Chat instantly with agents or owners"], buttonTitle: "Find a Home", description: "Browse verified listings, set your preferences, and chat directly with agents or landlords. Whether you're looking to rent or buy, we help you find a place that feels like home."},
+
+  {id: 3, name: "Agents", title: "Connect Homes with the People Who Need Them", features: ["Multi-property management", "Calendar for viewing appointments", "Verified agent profile + reviews", "CRM tools to manage leads"], buttonTitle: "Join As Agent", description :"Upload multiple listings, manage appointments, and grow your network. Our tools help you close deals faster and build client trust with verified profiles."},
+  
+  {id: 4, name: "Artisans / Service Providers", title: "Get Hired by Property Owners, Instantly", features: ["Create a professional service profile", "Get job requests from landlords & agents", "Ratings & reviews to boost credibility"], buttonTitle: "Offer My Services", description: "Whether you're a plumber, electrician, or painter — get matched with real jobs in real time. Build your reputation, get paid fast, and keep your calendar full."}
+]
 export default function Home() {
+  const [cards, setCards] = useState(descriptions);
+  const [active, setActive] = useState<string | null | number>(null);
+  
+
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <WebsiteBg>
+      <>
+      <div className="container" style={{backgroundImage: `url(${BG1.src})`}}>
+        <section className="hero-banner">
+      <motion.h1
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3, duration: 0.8, ease: 'easeOut' }}
+        className="hero-title"
+      >
+        Find. List. Lease. Everything Property In One Place
+      </motion.h1>
+
+      <motion.p
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.8, duration: 0.7, ease: 'easeOut' }}
+        className="hero-description"
+      >
+        For landlords, agents, and renters — we simplify the housing experience.
+      </motion.p>
+        </section>
+        <div className="bacground"  >
+          {cards.map((card, index: number) => {
+            const isActive = active === card.id;
+
+            return (
+              <motion.div
+                key={card.id}
+                layout
+                onMouseEnter={() => setActive(card.id)}
+                onMouseLeave={() => setActive(null)}
+                onClick={() => setActive(card.id)}
+                className="stacked-card"
+                style={{
+                  top: index * 100, // stacking margin
+                  zIndex: isActive ? 10 : index,
+                }}
+                transition={{
+                  type: 'spring',
+                  stiffness: 250,
+                  damping: 25,
+                }}
+                whileHover={{
+                  scale: 1.03,
+                  boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
+                }}
+                >
+                <DescriptionCard 
+                  name={card.name}
+                  description={card.description}
+                />
+              </motion.div>
+                  
+                )
+            })}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
+        
+        <Row gutter={[15, 15]} className="pb-4">
+          {titlement.map((details: any, index: number) => {
+            return (
+              <Col lg={6} sm={12} xs={24}>
+                <ListingCards 
+                  name={details.name}
+                  title={details.title}
+                  features={details.features}
+                  buttonTitle={details.buttonTitle}
+                  description={details.description}
+                  key={index}
+                />
+              </Col>
+            )
+          })}
+        </Row>
+
+       
+      </div>
+       <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut' }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto text-center text-lg text-gray-700 px-6 py-24"
+          style={{backgroundColor: "#F2F4F7", width: "100%"}}
         >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+          <h2 className="text-3xl font-bold mb-4">
+            Redefining the Property Experience for Everyone
+          </h2>
+          <p>
+            We believe that finding, listing, or managing a property shouldn’t feel like a chore. Whether you're a landlord looking to simplify management, a tenant seeking the perfect space, an agent trying to close faster, or an artisan offering trusted services — our platform brings it all together under one smart, secure, and intuitive system.
+            <br /><br />
+            Built for real people with real needs, we’re creating a housing ecosystem that works for everyone — without the stress, delays, or middlemen.
+          </p>
+        </motion.div>
+
+      </>
+      
+
+    </WebsiteBg>
   );
 }

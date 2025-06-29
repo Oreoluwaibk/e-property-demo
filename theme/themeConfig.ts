@@ -3,7 +3,8 @@ import type { ThemeConfig } from 'antd';
 export const theme: ThemeConfig = {
   token: {
     colorPrimary: '#2A4BA0',
-    colorPrimaryBg: "#F2F4F7",
+    // : "#F2F4F7",
+    colorPrimaryBg: "#2A4BA0",
     fontFamily: "'GeistSans', 'GeistSans Fallback'",
   },
   components: {
