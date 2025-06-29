@@ -46,6 +46,7 @@ export const ListingCards = ({ name, description, features, buttonTitle, title }
             variants={{
                 rest: { y: 50 },
                 hover: { y: -70 },
+                click: {y: -70}
             }}
             transition={{ type: 'spring', stiffness: 200, damping: 20 }}
         >
@@ -56,6 +57,7 @@ export const ListingCards = ({ name, description, features, buttonTitle, title }
             variants={{
                 rest: { opacity: 0, y: 20 },
                 hover: { opacity: 1, y: -50 },
+                click: { opacity: 1, y: -50 },
             }}
             transition={{ delay: 0.1, duration: 0.4 }}
             style={{ pointerEvents: hovered ? 'auto' : 'none' }}
