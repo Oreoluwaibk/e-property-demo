@@ -91,7 +91,7 @@ export default function Home() {
         <Row gutter={[15, 15]} className="pb-4">
           {titlement.map((details: any, index: number) => {
             return (
-              <Col lg={6} sm={12} xs={24}>
+              <Col lg={6} sm={12} xs={24} key={index}>
                 <ListingCards 
                   name={details.name}
                   title={details.title}
